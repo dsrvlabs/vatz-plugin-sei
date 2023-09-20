@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	rpcCosmos "github.com/dsrvlabs/vatz-plugin-cosmoshub/rpc/cosmos"
+	rpcCosmos "github.com/dsrvlabs/vatz-plugin-sei/rpc/cosmos"
 	mock "github.com/stretchr/testify/mock"
 )
 

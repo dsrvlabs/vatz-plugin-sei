@@ -1,4 +1,4 @@
-module github.com/dsrvlabs/vatz-plugin-cosmoshub
+module github.com/dsrvlabs/vatz-plugin-sei
 
 go 1.18
 

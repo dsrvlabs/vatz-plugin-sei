@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	rpcGovernance "github.com/dsrvlabs/vatz-plugin-cosmoshub/rpc/cosmos"
+	rpcGovernance "github.com/dsrvlabs/vatz-plugin-sei/rpc/cosmos"
 	pluginpb "github.com/dsrvlabs/vatz-proto/plugin/v1"
 	"github.com/dsrvlabs/vatz/sdk"
 	"github.com/rs/zerolog/log"
