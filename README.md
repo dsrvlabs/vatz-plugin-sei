@@ -1,5 +1,5 @@
-# vatz-plugin-cosmoshub
-Vatz plugin for cosmoshub node monitoring
+# vatz-plugin-sei
+Vatz plugin for sei node monitoring
 
 ## Plugins
 - node_block_sync : monitor block sync status
@@ -14,8 +14,8 @@ Vatz plugin for cosmoshub node monitoring
 ### Install Plugins
 - Install with source
 ```
-$ git clone https://github.com/dsrvlabs/vatz-plugin-cosmoshub.git
-$ cd vatz-plugin-cosmoshub
+$ git clone https://github.com/dsrvlabs/vatz-plugin-sei.git
+$ cd vatz-plugin-sei
 $ make install
 ```
 - Install with Vatz CLI command
@@ -34,11 +34,11 @@ Flags:
 ```
 > please make sure install path for the plugins repository URL.
 ```
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_block_sync vatz_block_sync
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_is_alived vatz_node_is_alived
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_peer_count vatz_peer_count
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_active_status vatz_active_status
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_governance_alarm vatz_gov_alarm
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync vatz_block_sync
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived vatz_node_is_alived
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count vatz_peer_count
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status vatz_active_status
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm vatz_gov_alarm
 ```
 - Check plugins list with Vatz CLI command
 ```
@@ -51,11 +51,11 @@ $ vatz plugin list
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
 | NAME                | INSTALL DATA        | REPOSITORY                                                              | VERSION |
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
-| vatz_block_sync     | 2023-01-02 09:13:19 | github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_block_sync       | latest  |
-| vatz_node_is_alived | 2023-01-02 09:13:43 | github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_is_alived        | latest  |
-| vatz_peer_count     | 2023-01-02 09:14:05 | github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_peer_count       | latest  |
-| vatz_active_status  | 2023-01-02 09:14:41 | github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_active_status    | latest  |
-| vatz_gov_alarm      | 2023-01-02 09:15:00 | github.com/dsrvlabs/vatz-plugin-cosmoshub/plugins/node_governance_alarm | latest  |
+| vatz_block_sync     | 2023-01-02 09:13:19 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync       | latest  |
+| vatz_node_is_alived | 2023-01-02 09:13:43 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived        | latest  |
+| vatz_peer_count     | 2023-01-02 09:14:05 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count       | latest  |
+| vatz_active_status  | 2023-01-02 09:14:41 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status    | latest  |
+| vatz_gov_alarm      | 2023-01-02 09:15:00 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm | latest  |
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
 ```
 
@@ -183,4 +183,4 @@ Usage of node_governance_alarm:
 
 ## License
 
-`vatz-plugin-cosmoshub` is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), also included in our repository in the `LICENSE` file.
+`vatz-plugin-sei` is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), also included in our repository in the `LICENSE` file.
