@@ -21,6 +21,7 @@ const (
 	defaultAddr    = "127.0.0.1"
 	defaultPort    = 10004
 	pluginName     = "pfd_status"
+	alertCondition = 40
 )
 
 var (
@@ -88,8 +89,8 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	}
 
 	// Print the original result.
-	fmt.Println("Original Result:")
-	fmt.Println(string(output))
+	//	fmt.Println("Original Result:")
+	//	fmt.Println(string(output))
 
 	lines := strings.Split(string(output), "\n")
 	votePenaltyCounter := make(map[string]string)
@@ -121,8 +122,16 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 
 	missingRatio := float64(abstainCount) / float64(successCount) * 100
 
-	severity = pluginpb.SEVERITY_INFO
-	msg = fmt.Sprintf("Price-Feeder oracle missing rate: %.2f%%\n", missingRatio)
+	if missingRatio > alertCondition {
+		severity = pluginpb.SEVERITY_CRITICAL
+		state = pluginpb.STATE_FAILURE
+		msg = fmt.Sprintf("Price-Feeder oracle missing rate is too high: %.2f%%\n", missingRatio)
+	} else {
+		severity = pluginpb.SEVERITY_INFO
+		state = pluginpb.STATE_SUCCESS
+		msg = fmt.Sprintf("Price-Feeder oracle missing rate: %.2f%%\n", missingRatio)
+	}
+
 	log.Debug().Str("module", "plugin").Msg(msg)
 
 	ret := sdk.CallResponse{
