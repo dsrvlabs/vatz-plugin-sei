@@ -1,9 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"os"
 	"os/exec"
+	"strconv"
 
 	pluginpb "github.com/dsrvlabs/vatz-proto/plugin/v1"
 	"github.com/dsrvlabs/vatz/sdk"
@@ -27,6 +30,11 @@ var (
 	port        int
 	valoperAddr string
 )
+
+type VotePenaltyCounter struct {
+	AbstainCount string `json:"abstain_count"`
+	SuccessCount string `json:"success_count"`
+}
 
 func init() {
 	flag.StringVar(&rpcAddr, "rpcURI", defaultRPCAddr, "CosmosHub RPC URI Address")
@@ -79,14 +87,34 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	// Set up the command and arguments
 	cmd := exec.Command("seid", "q", "oracle", "vote-penalty-counter", valoperAddr)
 
-	// Execute the command and collect the result
-	output, err := cmd.CombinedOutput()
+	cmd.Stderr = os.Stderr
+	output, err := cmd.Output()
 	if err != nil {
-		return sdk.CallResponse{}, fmt.Errorf("Error occurred while executing the command: %v\nError Details: %s", err, output)
+		log.Error().Err(err).Msg("Error running 'seid' command")
 	}
 
+	// Parse the JSON result
+	var votePenaltyCounter VotePenaltyCounter
+	if err := json.Unmarshal(output, &votePenaltyCounter); err != nil {
+		log.Error().Err(err).Msg("Error parsing JSON")
+	}
+
+	// Convert the counts to float64 and calculate the ratio
+	abstainCount, err := strconv.ParseFloat(votePenaltyCounter.AbstainCount, 64)
+	if err != nil {
+		log.Error().Err(err).Msg("Error converting abstainCount to float64")
+	}
+
+	successCount, err := strconv.ParseFloat(votePenaltyCounter.SuccessCount, 64)
+	if err != nil {
+		log.Error().Err(err).Msg("Error converting successCount to float64")
+	}
+
+	// Calculate the ratio and multiply by 100
+	ratio := (abstainCount / successCount) * 100
+
 	severity = pluginpb.SEVERITY_INFO
-	msg = fmt.Sprintf("Validator bonded. included active set")
+	msg = fmt.Sprintf("Price-Feeder oracle missing rate: %d", ratio)
 	log.Debug().Str("module", "plugin").Msg(msg)
 
 	ret := sdk.CallResponse{
