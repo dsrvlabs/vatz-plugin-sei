@@ -1,12 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 
 	pluginpb "github.com/dsrvlabs/vatz-proto/plugin/v1"
 	"github.com/dsrvlabs/vatz/sdk"
@@ -16,7 +16,6 @@ import (
 )
 
 const (
-
 	// Default values.
 	defaultRPCAddr = "http://localhost:1317"
 	defaultAddr    = "127.0.0.1"
@@ -30,11 +29,6 @@ var (
 	port        int
 	valoperAddr string
 )
-
-type VotePenaltyCounter struct {
-	AbstainCount string `json:"abstain_count"`
-	SuccessCount string `json:"success_count"`
-}
 
 func init() {
 	flag.StringVar(&rpcAddr, "rpcURI", defaultRPCAddr, "CosmosHub RPC URI Address")
@@ -85,36 +79,50 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	}
 
 	// Set up the command and arguments
-	cmd := exec.Command("seid", "q", "oracle", "vote-penalty-counter", valoperAddr)
+	cmd := exec.Command("seid", "q", "oracle", "vote-penalty-counter", valoperAddr, "--home", "/mnt/sei/")
 
-	cmd.Stderr = os.Stderr
-	output, err := cmd.Output()
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Error().Err(err).Msg("Error running 'seid' command")
+		fmt.Println("Error occurred:", err)
+		os.Exit(1)
 	}
 
-	// Parse the JSON result
-	var votePenaltyCounter VotePenaltyCounter
-	if err := json.Unmarshal(output, &votePenaltyCounter); err != nil {
-		log.Error().Err(err).Msg("Error parsing JSON")
+	// Print the original result.
+	fmt.Println("Original Result:")
+	fmt.Println(string(output))
+
+	lines := strings.Split(string(output), "\n")
+	votePenaltyCounter := make(map[string]string)
+
+	for _, line := range lines {
+		parts := strings.Split(line, ":")
+		if len(parts) == 2 {
+			key := strings.TrimSpace(parts[0])
+			value := strings.TrimSpace(parts[1])
+			votePenaltyCounter[key] = strings.Trim(value, "\"")
+		}
 	}
 
-	// Convert the counts to float64 and calculate the ratio
-	abstainCount, err := strconv.ParseFloat(votePenaltyCounter.AbstainCount, 64)
+	// Extract the necessary information.
+	abstainCountStr := votePenaltyCounter["abstain_count"]
+	successCountStr := votePenaltyCounter["success_count"]
+
+	abstainCount, err := strconv.Atoi(abstainCountStr)
 	if err != nil {
-		log.Error().Err(err).Msg("Error converting abstainCount to float64")
+		fmt.Println("Error parsing abstain_count:", err)
+		os.Exit(1)
 	}
 
-	successCount, err := strconv.ParseFloat(votePenaltyCounter.SuccessCount, 64)
+	successCount, err := strconv.Atoi(successCountStr)
 	if err != nil {
-		log.Error().Err(err).Msg("Error converting successCount to float64")
+		fmt.Println("Error parsing success_count:", err)
+		os.Exit(1)
 	}
 
-	// Calculate the ratio and multiply by 100
-	ratio := (abstainCount / successCount) * 100
+	missingRatio := float64(abstainCount) / float64(successCount) * 100
 
 	severity = pluginpb.SEVERITY_INFO
-	msg = fmt.Sprintf("Price-Feeder oracle missing rate: %d", ratio)
+	msg = fmt.Sprintf("Price-Feeder oracle missing rate: %.2f%%\n", missingRatio)
 	log.Debug().Str("module", "plugin").Msg(msg)
 
 	ret := sdk.CallResponse{
