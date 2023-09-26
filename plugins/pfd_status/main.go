@@ -29,6 +29,7 @@ var (
 	addr        string
 	port        int
 	valoperAddr string
+	seiHome     string
 )
 
 func init() {
@@ -36,6 +37,7 @@ func init() {
 	flag.StringVar(&addr, "addr", defaultAddr, "Listening address")
 	flag.IntVar(&port, "port", defaultPort, "Listening port")
 	flag.StringVar(&valoperAddr, "valoperAddr", "", "CosmosHub validator operator address")
+	flag.StringVar(&seiHome, "seiHome", "", "Sei node's home flag")
 
 	flag.Parse()
 }
@@ -80,7 +82,7 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	}
 
 	// Set up the command and arguments
-	cmd := exec.Command("seid", "q", "oracle", "vote-penalty-counter", valoperAddr, "--home", "/mnt/sei/")
+	cmd := exec.Command("seid", "q", "oracle", "vote-penalty-counter", valoperAddr, "--home", seiHome)
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
