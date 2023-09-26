@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -68,13 +67,12 @@ func checkSeidInstallation() error {
 
 func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, error) {
 	severity := pluginpb.SEVERITY_INFO
-	state := pluginpb.STATE_NONE
+	state := pluginpb.STATE_FAILURE
 
 	var msg string
 
 	if err := checkSeidInstallation(); err != nil {
 		severity = pluginpb.SEVERITY_CRITICAL
-		state = pluginpb.STATE_FAILURE
 		msg = "Failed to get price-feeder status"
 		log.Info().Str("moudle", "plugin").Msg(msg)
 
@@ -87,7 +85,6 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println("Error occurred:", err)
-		os.Exit(1)
 	}
 
 	// Print the original result.
@@ -113,20 +110,17 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 	abstainCount, err := strconv.Atoi(abstainCountStr)
 	if err != nil {
 		fmt.Println("Error parsing abstain_count:", err)
-		os.Exit(1)
 	}
 
 	successCount, err := strconv.Atoi(successCountStr)
 	if err != nil {
 		fmt.Println("Error parsing success_count:", err)
-		os.Exit(1)
 	}
 
 	missingRatio := float64(abstainCount) / float64(successCount) * 100
 
 	if missingRatio > alertCondition {
 		severity = pluginpb.SEVERITY_CRITICAL
-		state = pluginpb.STATE_FAILURE
 		msg = fmt.Sprintf("Price-Feeder oracle missing rate is too high: %.2f%%\n", missingRatio)
 	} else {
 		severity = pluginpb.SEVERITY_INFO
