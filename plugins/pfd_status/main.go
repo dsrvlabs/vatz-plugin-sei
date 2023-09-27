@@ -127,11 +127,10 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 		severity = pluginpb.SEVERITY_WARNING
 		state = pluginpb.STATE_SUCCESS
 		msg = fmt.Sprintf("Price-Feeder oracle missing rate are rising: %.2f%%\n", missingRatio)
-	} else if missingRatio > 0 {
+	} else {
 		severity = pluginpb.SEVERITY_INFO
 		state = pluginpb.STATE_SUCCESS
 		msg = fmt.Sprintf("Price-Feeder oracle missing rate is good: %.2f%%\n", missingRatio)
-	} else {
 	}
 
 	log.Debug().Str("module", "plugin").Msg(msg)
