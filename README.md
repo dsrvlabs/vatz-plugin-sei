@@ -34,11 +34,11 @@ Flags:
 ```
 > please make sure install path for the plugins repository URL.
 ```
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync vatz_block_sync
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived vatz_node_is_alived
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count vatz_peer_count
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status vatz_active_status
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm vatz_gov_alarm
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync node_block_sync
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived node_is_alived
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count node_peer_count
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status node_active_status
+$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm node_governance_alarm
 ```
 - Check plugins list with Vatz CLI command
 ```
@@ -51,11 +51,11 @@ $ vatz plugin list
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
 | NAME                | INSTALL DATA        | REPOSITORY                                                              | VERSION |
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
-| vatz_block_sync     | 2023-01-02 09:13:19 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync       | latest  |
-| vatz_node_is_alived | 2023-01-02 09:13:43 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived        | latest  |
-| vatz_peer_count     | 2023-01-02 09:14:05 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count       | latest  |
-| vatz_active_status  | 2023-01-02 09:14:41 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status    | latest  |
-| vatz_gov_alarm      | 2023-01-02 09:15:00 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm | latest  |
+| node_block_sync     | 2023-01-02 09:13:19 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync       | latest  |
+| node_node_is_alived | 2023-01-02 09:13:43 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived        | latest  |
+| node_peer_count     | 2023-01-02 09:14:05 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count       | latest  |
+| node_active_status  | 2023-01-02 09:14:41 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status    | latest  |
+| node_gov_alarm      | 2023-01-02 09:15:00 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm | latest  |
 +---------------------+---------------------+-------------------------------------------------------------------------+---------+
 ```
 
