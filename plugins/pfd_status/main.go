@@ -16,11 +16,12 @@ import (
 
 const (
 	// Default values.
-	defaultRPCAddr = "http://localhost:1317"
-	defaultAddr    = "127.0.0.1"
-	defaultPort    = 10004
-	pluginName     = "pfd_status"
-	alertCondition = 40
+	defaultRPCAddr    = "http://localhost:1317"
+	defaultAddr       = "127.0.0.1"
+	defaultPort       = 10004
+	pluginName        = "pfd_status"
+	warnCondition     = 20
+	criticalCondition = 95
 )
 
 var (
@@ -66,13 +67,12 @@ func checkSeidInstallation() error {
 }
 
 func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, error) {
-	severity := pluginpb.SEVERITY_INFO
+	severity := pluginpb.SEVERITY_ERROR
 	state := pluginpb.STATE_FAILURE
 
 	var msg string
 
 	if err := checkSeidInstallation(); err != nil {
-		severity = pluginpb.SEVERITY_CRITICAL
 		msg = "Failed to get price-feeder status"
 		log.Info().Str("moudle", "plugin").Msg(msg)
 
@@ -84,7 +84,7 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println("Error occurred:", err)
+		msg = fmt.Sprintf("Error occurred:", err)
 	}
 
 	// Print the original result.
@@ -109,23 +109,29 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 
 	abstainCount, err := strconv.Atoi(abstainCountStr)
 	if err != nil {
-		fmt.Println("Error parsing abstain_count:", err)
+		msg = fmt.Sprintf("Error parsing abstain_count:", err)
 	}
 
 	successCount, err := strconv.Atoi(successCountStr)
 	if err != nil {
-		fmt.Println("Error parsing success_count:", err)
+		msg = fmt.Sprintf("Error parsing success_count:", err)
 	}
 
 	missingRatio := float64(abstainCount) / float64(successCount) * 100
 
-	if missingRatio > alertCondition {
+	if missingRatio > criticalCondition {
 		severity = pluginpb.SEVERITY_CRITICAL
-		msg = fmt.Sprintf("Price-Feeder oracle missing rate is too high: %.2f%%\n", missingRatio)
-	} else {
+		state = pluginpb.STATE_SUCCESS
+		msg = fmt.Sprintf("Price-Feeder missing rate is too high: %.2f%%\nYou're going to gt jailed.\n", missingRatio)
+	} else if missingRatio > warnCondition {
+		severity = pluginpb.SEVERITY_WARNING
+		state = pluginpb.STATE_SUCCESS
+		msg = fmt.Sprintf("Price-Feeder oracle missing rate are rising: %.2f%%\n", missingRatio)
+	} else if missingRatio > 0 {
 		severity = pluginpb.SEVERITY_INFO
 		state = pluginpb.STATE_SUCCESS
-		msg = fmt.Sprintf("Price-Feeder oracle missing rate: %.2f%%\n", missingRatio)
+		msg = fmt.Sprintf("Price-Feeder oracle missing rate is good: %.2f%%\n", missingRatio)
+	} else {
 	}
 
 	log.Debug().Str("module", "plugin").Msg(msg)
