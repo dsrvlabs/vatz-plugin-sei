@@ -16,20 +16,22 @@ import (
 
 const (
 	// Default values.
-	defaultRPCAddr    = "http://localhost:1317"
-	defaultAddr       = "127.0.0.1"
-	defaultPort       = 10004
-	pluginName        = "pfd_status"
-	warnCondition     = 20
-	criticalCondition = 95
+	defaultRPCAddr  = "http://localhost:1317"
+	defaultAddr     = "127.0.0.1"
+	defaultPort     = 10004
+	defaultWarn     = 20
+	defaultCritical = 95
+	pluginName      = "pfd_status"
 )
 
 var (
-	rpcAddr     string
-	addr        string
-	port        int
-	valoperAddr string
-	seiHome     string
+	rpcAddr           string
+	addr              string
+	port              int
+	valoperAddr       string
+	warnCondition     float64
+	criticalCondition float64
+	seiHome           string
 )
 
 func init() {
@@ -37,6 +39,8 @@ func init() {
 	flag.StringVar(&addr, "addr", defaultAddr, "Listening address")
 	flag.IntVar(&port, "port", defaultPort, "Listening port")
 	flag.StringVar(&valoperAddr, "valoperAddr", "", "CosmosHub validator operator address")
+	flag.Float64Var(&warnCondition, "port", defaultWarn, "Warning count")
+	flag.Float64Var(&criticalCondition, "port", defaultCritical, "Critical count")
 	flag.StringVar(&seiHome, "seiHome", "", "Sei node's home flag")
 
 	flag.Parse()
