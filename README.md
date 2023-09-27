@@ -34,11 +34,11 @@ Flags:
 ```
 > please make sure install path for the plugins repository URL.
 ```
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync node_block_sync
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived node_is_alived
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count node_peer_count
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status node_active_status
-$ vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm node_governance_alarm
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync node_block_sync
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived node_is_alived
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count node_peer_count
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status node_active_status
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm node_governance_alarm
 ```
 - Check plugins list with Vatz CLI command
 ```
