@@ -39,24 +39,21 @@ $ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_aliv
 $ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count node_peer_count
 $ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status node_active_status
 $ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm node_governance_alarm
+$ ./vatz plugin install github.com/dsrvlabs/vatz-plugin-sei/plugins/pfd_status pfd_status
 ```
 - Check plugins list with Vatz CLI command
 ```
 $ vatz plugin list
-2023-01-03T09:21:34Z INF List plugins module=plugin
-2023-01-03T09:21:34Z INF List module=plugin
-2023-01-03T09:21:34Z INF newReader /root/.vatz/vatz.db module=db
-2023-01-03T09:21:34Z INF Create DB Instance module=db
-2023-01-03T09:21:34Z INF List Plugin module=db
-+---------------------+---------------------+-------------------------------------------------------------------------+---------+
-| NAME                | INSTALL DATA        | REPOSITORY                                                              | VERSION |
-+---------------------+---------------------+-------------------------------------------------------------------------+---------+
-| node_block_sync     | 2023-01-02 09:13:19 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync       | latest  |
-| node_node_is_alived | 2023-01-02 09:13:43 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived        | latest  |
-| node_peer_count     | 2023-01-02 09:14:05 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count       | latest  |
-| node_active_status  | 2023-01-02 09:14:41 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status    | latest  |
-| node_gov_alarm      | 2023-01-02 09:15:00 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm | latest  |
-+---------------------+---------------------+-------------------------------------------------------------------------+---------+
++-----------------------+------------+---------------------+-------------------------------------------------------------------+---------+
+| NAME                  | IS ENABLED | INSTALL DATE        | REPOSITORY                                                        | VERSION |
++-----------------------+------------+---------------------+-------------------------------------------------------------------+---------+
+| node_block_sync       | true       | 2023-09-27 01:14:53 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_block_sync       | latest  |
+| node_is_alived        | true       | 2023-09-27 01:15:41 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_is_alived        | latest  |
+| node_peer_count       | true       | 2023-09-27 01:15:46 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_peer_count       | latest  |
+| node_active_status    | true       | 2023-09-27 01:15:51 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_active_status    | latest  |
+| node_governance_alarm | true       | 2023-09-27 01:15:59 | github.com/dsrvlabs/vatz-plugin-sei/plugins/node_governance_alarm | latest  |
+| pfd_status            | true       | 2023-09-27 01:16:16 | github.com/dsrvlabs/vatz-plugin-sei/plugins/pfd_status            | latest  |
++-----------------------+------------+---------------------+-------------------------------------------------------------------+---------+
 ```
 
 ### Run
@@ -109,6 +106,16 @@ $ node_governance_alarm -apiPort <API server port{default is 1317}> -voterAddr <
 2023-05-31T07:08:10Z INF Execute module=grpc
 2023-05-31T07:08:10Z DBG DEBUG : tmp == proposalId module=plugin
 2023-05-31T07:08:10Z INF Lastest proposal is #51
+ module=plugin
+```
+
+```
+$ pfd_status -port <API server port> -valoperAddr <Valoper Address> -seiHome <Home PATH>
+2023-09-26T02:04:52Z INF Register module=grpc
+2023-09-26T02:04:52Z INF Start 127.0.0.1 10006 module=sdk
+2023-09-26T02:04:52Z INF Start module=grpc
+2023-09-26T02:05:22Z INF Execute module=grpc
+2023-09-26T02:05:22Z DBG Price-Feeder oracle missing rate: 0.90%
  module=plugin
 ```
 ## Command line arguments
@@ -173,6 +180,18 @@ Usage of node_governance_alarm:
     	Need to voter address (default "address")
 ```
 
+- pfd_status
+```
+Usage of pfd_status:
+  -addr string
+    	IP Address(e.g. 0.0.0.0, 127.0.0.1) (default "127.0.0.1")
+  -port int
+    	Port number (default 10006)
+  -seiHome
+	HOME PATH
+  -valoperAddr string
+    	Need to valoperAddress address (default "address")
+```
 ## TroubleShooting
 1. Encountered issue related with `Device or Resource Busy` or `Too many open files` error.
  - Check your open file limit and recommended to increase it.
