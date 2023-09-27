@@ -18,7 +18,7 @@ const (
 	// Default values.
 	defaultRPCAddr  = "http://localhost:1317"
 	defaultAddr     = "127.0.0.1"
-	defaultPort     = 10004
+	defaultPort     = 10006
 	defaultWarn     = 20
 	defaultCritical = 95
 	pluginName      = "pfd_status"
@@ -39,8 +39,8 @@ func init() {
 	flag.StringVar(&addr, "addr", defaultAddr, "Listening address")
 	flag.IntVar(&port, "port", defaultPort, "Listening port")
 	flag.StringVar(&valoperAddr, "valoperAddr", "", "CosmosHub validator operator address")
-	flag.Float64Var(&warnCondition, "port", defaultWarn, "Warning count")
-	flag.Float64Var(&criticalCondition, "port", defaultCritical, "Critical count")
+	flag.Float64Var(&warnCondition, "warnCondition", defaultWarn, "Warning count")
+	flag.Float64Var(&criticalCondition, "criticalCondition", defaultCritical, "Critical count")
 	flag.StringVar(&seiHome, "seiHome", "", "Sei node's home flag")
 
 	flag.Parse()
