@@ -20,7 +20,7 @@ $ make install
 ```
 - Install with Vatz CLI command
 ```
-$ vatz plugin install --help
+$ ./vatz plugin install --help
 Install new plugin
 
 Usage:
