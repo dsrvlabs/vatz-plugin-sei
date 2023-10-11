@@ -4,6 +4,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dsrvlabs/vatz-proto v0.0.0-20220908182122-4c28400b195f h1:VUX+u+XbsRZOnmX4SzXaW6LFcBOF9IZlBVHdgu43EGc=
 github.com/dsrvlabs/vatz-proto v0.0.0-20220908182122-4c28400b195f/go.mod h1:0ksXsnd9pZ860eMhnoNT6wq0hALJc6EM0JnFx6zQJHk=
+github.com/dsrvlabs/vatz-proto v1.0.1-0.20231011015934-1786c7c486a0 h1:/138ozHZ/1oQS4HXnCxL6+Ddd2NOkGZVdtP1RAGo5oI=
+github.com/dsrvlabs/vatz-proto v1.0.1-0.20231011015934-1786c7c486a0/go.mod h1:PDvHLT6k1V1ibRVa0IxYk9OcfMTicryGyfRYcxXyuVs=
 github.com/dsrvlabs/vatz/sdk v0.0.0-20221011062114-75a42d7cf117 h1:UZnfIzndsDPwolYmCKGQXyxoPVh3b3pLHbNezAiGG48=
 github.com/dsrvlabs/vatz/sdk v0.0.0-20221011062114-75a42d7cf117/go.mod h1:vJEBNwai9RobBAztcIWeuawaO+9XXT9WJZ6J9r7+I0c=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
