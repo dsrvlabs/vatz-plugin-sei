@@ -7,6 +7,7 @@ Vatz plugin for sei node monitoring
 - node_peer_count : monitor the number of peers
 - node_active_status : monitor the validator include in active set
 - node_governance_alarm : monitor the new governance proposal and whether or not to vote
+- pfd_status: monitor the price-feeder oracle status
 
 ## Installation and Usage
 > Please make sure [Vatz](https://github.com/dsrvlabs/vatz) is running with proper configuration. [Vatz Installation Guide](https://github.com/dsrvlabs/vatz/blob/main/docs/installation.md)
