@@ -3,7 +3,7 @@
 - Run this script to install vatz and vatz-plugin-sei. 
 ```
 bash install_vatz-plugin-sei.sh
-``
+```
 ## 2. default_example.yaml
 - Replace default.yaml with this file after `vatz init`.
 - You must enter hostname and webhook.
