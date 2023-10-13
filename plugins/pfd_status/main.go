@@ -121,7 +121,7 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 		msg = fmt.Sprintf("Error parsing success_count:", err)
 	}
 
-	missingRatio := float64(abstainCount) / float64(successCount) * 100
+	missingRatio := float64(abstainCount) / float64(successCount + abstainCount) * 100
 
 	if missingRatio > criticalCondition {
 		severity = pluginpb.SEVERITY_CRITICAL
