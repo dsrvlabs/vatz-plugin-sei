@@ -109,6 +109,7 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 
 	// Extract the necessary information.
 	abstainCountStr := votePenaltyCounter["abstain_count"]
+	missCountStr := votePenaltyCounter["miss_count"]
 	successCountStr := votePenaltyCounter["success_count"]
 
 	abstainCount, err := strconv.Atoi(abstainCountStr)
@@ -116,12 +117,17 @@ func pluginFeature(info, option map[string]*structpb.Value) (sdk.CallResponse, e
 		msg = fmt.Sprintf("Error parsing abstain_count:", err)
 	}
 
+	missCount, err := strconv.Atoi(missCountStr)
+	if err != nil {
+		msg = fmt.Sprintf("Error parsing miss_count:", err)
+	}
+
 	successCount, err := strconv.Atoi(successCountStr)
 	if err != nil {
 		msg = fmt.Sprintf("Error parsing success_count:", err)
 	}
 
-	missingRatio := float64(abstainCount) / float64(successCount + abstainCount) * 100
+	missingRatio := float64(abstainCount+missCount) / float64(abstainCount+missCount+successCount) * 100
 
 	if missingRatio > criticalCondition {
 		severity = pluginpb.SEVERITY_CRITICAL
