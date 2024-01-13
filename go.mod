@@ -3,7 +3,7 @@ module github.com/dsrvlabs/vatz-plugin-sei
 go 1.18
 
 require (
-	github.com/dsrvlabs/vatz-proto v0.0.0-20220908182122-4c28400b195f
+	github.com/dsrvlabs/vatz-proto v1.0.1-0.20231011015934-1786c7c486a0
 	github.com/dsrvlabs/vatz/sdk v0.0.0-20221011062114-75a42d7cf117
 	github.com/jarcoal/httpmock v1.2.0
 	github.com/rs/zerolog v1.28.0
